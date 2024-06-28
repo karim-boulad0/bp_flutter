@@ -22,7 +22,6 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
 // variables----------------------------------------------
   List banners = [];
-
   List categories = [];
   List brands = [];
   List newstProducts = [];
@@ -37,17 +36,14 @@ class _HomePageState extends State<HomePage>
     _handleAuth();
   }
 
-
-
   Future<void> fetchHomePageData() async {
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.1.4:8000/api/getHomePage'),
+        Uri.parse('http://192.168.1.5:8000/api/getHomePage'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
         setState(() {
@@ -154,165 +150,175 @@ class _HomePageState extends State<HomePage>
                       ),
                     ),
         ),
-        body: IndexedStack(
-          index: _selectedIndex,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(20),
-              child: ListView(
-                children: [
-                  const Text(
-                    "Let's Start Shopping!",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                  ),
-                  Container(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    height: 170,
-                    child: Padding(
-                      padding: const EdgeInsets.all(
-                          0), // Optional padding around the PageView
-                      child: BannersSide(banners: banners),
+        body: InkWell(
+          onTap: () {
+            print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+            setState(() {
+              _handleAuth();
+            });
+            print("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+          },
+          child: IndexedStack(
+            index: _selectedIndex,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(20),
+                child: ListView(
+                  children: [
+                    const Text(
+                      "Let's Start Shopping!",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
                     ),
-                  ),
-                  Container(
-                    height: 10,
-                  ),
-                  const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        "Catgeoires",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                    Container(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      height: 170,
+                      child: Padding(
+                        padding: const EdgeInsets.all(
+                            0), // Optional padding around the PageView
+                        child: BannersSide(banners: banners),
                       ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            _selectedIndex = 1;
-                          });
-                        },
-                        child: const Text(
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Catgeoires",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedIndex = 1;
+                            });
+                          },
+                          child: const Text(
+                            "See All",
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      height: 20,
+                    ),
+                    Expanded(
+                        child: CategoriesSide(
+                      categories: categories,
+                    )),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Featured products",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
                           "See All",
                           style: TextStyle(color: Colors.grey),
                         ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: 20,
-                  ),
-                  Expanded(
-                      child: CategoriesSide(
-                    categories: categories,
-                  )),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Featured products",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "See All",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                      child: ProductsSide(
-                    products: featuredProducts,
-                  )),
-                  Container(
-                    height: 10,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Best Selling",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "See All",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                      child: ProductsSide(
-                    products: bestSellerProducts,
-                  )),
-                  Container(
-                    height: 10,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "Brands",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "See All",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: 10,
-                  ),
-                  Expanded(
-                      child: BrandsSide(
-                    brands: brands,
-                  )),
-                  Container(
-                    height: 10,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        "newstProducts",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        "See All",
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: 10,
-                  ),
-                  Expanded(
-                      child: ProductsSide(
-                    products: newstProducts,
-                  )),
-                  Container(
-                    height: 10,
-                  ),
-                ],
+                      ],
+                    ),
+                    Expanded(
+                        child: ProductsSide(
+                      products: featuredProducts,
+                    )),
+                    Container(
+                      height: 10,
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Best Selling",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "See All",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    Expanded(
+                        child: ProductsSide(
+                      products: bestSellerProducts,
+                    )),
+                    Container(
+                      height: 10,
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Brands",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "See All",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    Expanded(
+                        child: BrandsSide(
+                      brands: brands,
+                    )),
+                    Container(
+                      height: 10,
+                    ),
+                    const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "newstProducts",
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "See All",
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      ],
+                    ),
+                    Container(
+                      height: 10,
+                    ),
+                    Expanded(
+                        child: ProductsSide(
+                      products: newstProducts,
+                    )),
+                    Container(
+                      height: 10,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Container(
-                padding: EdgeInsets.all(20),
-                child: SizedBox(
-                  child: Categories(categories: categories),
-                )),
-            Container(
-              child: Text("data"),
-            ),
-            Container(
-              child: isAuthenticated ? MyAccount() : MyAccountVisitor() ,
-            ),
-          ],
+              Container(
+                  padding: EdgeInsets.all(20),
+                  child: SizedBox(
+                    child: Categories(categories: categories),
+                  )),
+              Container(
+                child: Text("data"),
+              ),
+              Container(
+                child: isAuthenticated ? MyAccount() : MyAccountVisitor(),
+              ),
+            ],
+          ),
         ));
   }
 }

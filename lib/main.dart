@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterproject/auth/forget.dart';
 import 'package:flutterproject/auth/login.dart';
 import 'package:flutterproject/auth/signup.dart';
+import 'package:flutterproject/components/myaccount/myAccount.dart';
 import 'package:flutterproject/homePage.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -24,6 +25,7 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
     return MaterialApp(
       routes: {
         "HomePage": (context) => const HomePage(),
+        "MyAccount": (context) =>  MyAccount(),
         "LoginPage": (context) => const Login(),
         "Signup": (context) => const Signup(),
         "Forget": (context) => const Forget(),

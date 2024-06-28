@@ -26,7 +26,7 @@ class _CategoryByIdState extends State<CategoryById> {
   Future<void> fetchHomePageData() async {
     try {
       final response = await http.get(
-        Uri.parse('http://192.168.1.6:8000/api/getCategoryById/${widget.categoryId}'),
+        Uri.parse('http://192.168.1.5:8000/api/getCategoryById/${widget.categoryId}'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },

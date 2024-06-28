@@ -29,7 +29,7 @@ class _MyAccountVisitorState extends State<MyAccountVisitor> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               InkWell(
-                onTap: () async {
+                onTap: ()  {
                 },
                 child: Container(
                     decoration: BoxDecoration(

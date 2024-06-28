@@ -46,7 +46,7 @@ class _EditAccountPageState extends State<EditAccountPage> {
     try {
       final response = await http
           .post(
-            Uri.parse('http://192.168.1.6:8000/api/editUserProfile'),
+            Uri.parse('http://192.168.1.5:8000/api/editUserProfile'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
               'Authorization': 'Bearer $token',

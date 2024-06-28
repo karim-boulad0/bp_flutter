@@ -28,7 +28,7 @@ class _SignupState extends State<Signup> with SingleTickerProviderStateMixin {
     try {
       final response = await http
           .post(
-            Uri.parse('http://192.168.1.6:8000/api/signUp'),
+            Uri.parse('http://192.168.1.5:8000/api/signUp'),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
             },

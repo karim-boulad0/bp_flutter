@@ -30,11 +30,8 @@ class _MyAccountState extends State<MyAccount> {
   void initState() {
     super.initState();
     userData();
+    
   }
-
-// ---------------------
-// ---------------------
-  bool isAuthenticated1 = false;
   String? token;
 
   _handleAuth() async {
@@ -43,14 +40,12 @@ class _MyAccountState extends State<MyAccount> {
         await authService.checkAuth(token); // Wait for checkAuth to complete
     setState(() {
       authService.setIsAuth(authService);
-      isAuthenticated1 =
-          authResult; // Update isAuthenticated1 based on the awaited result
+      isAuthenticated =
+          authResult; // Update isAuthenticated based on the awaited result
     });
-     userData();
   }
 
-// ---------------------
-// ---------------------
+
   @override
   Widget build(BuildContext context) {
     // ignore: avoid_unnecessary_containers
@@ -58,92 +53,24 @@ class _MyAccountState extends State<MyAccount> {
     return user == null
         ? InkWell(
             onTap: () async {
+              return await userData();
             },
             child: const Center(
               child: CircularProgressIndicator(),
             ),
           )
-        : InkWell(
-            onTap: ()async {
-                            return await _handleAuth();
+        : Container(
+            child: Padding(
+              padding: const EdgeInsets.all(22),
+              child: ListView(children: [
+                // ignore: avoid_unnecessary_containers
 
-            },
-            child: Container(
-              child: Padding(
-                padding: const EdgeInsets.all(22),
-                child: ListView(children: [
-                  // ignore: avoid_unnecessary_containers
-
-                  // ignore: avoid_unnecessary_containers
-                  InkWell(
-                    onTap: () {
-                      userData();
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(15),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            color: const Color.fromARGB(255, 92, 90, 90)),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      margin: const EdgeInsets.only(top: 25),
-                      height: 140,
-                      width: 360,
-                      child: Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 5, top: 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  user!['name'] ?? '',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 17),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(bottom: 5, top: 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  user!['email'] ?? '',
-                                  style: const TextStyle(fontSize: 17),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Container(
-                            margin: const EdgeInsets.only(),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  user!['mobile'] ?? '',
-                                  style: const TextStyle(fontSize: 17),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
-                  Container(
-                    margin: const EdgeInsets.only(top: 50),
-                    child: const Text(
-                      "My Account",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                  ),
-                  // ignore: avoid_unnecessary_containers
-                  Container(
+                // ignore: avoid_unnecessary_containers
+                InkWell(
+                  onTap: () {
+                    userData();
+                  },
+                  child: Container(
                     padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       border: Border.all(
@@ -151,285 +78,83 @@ class _MyAccountState extends State<MyAccount> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     margin: const EdgeInsets.only(top: 25),
-                    height: 300,
+                    height: 140,
                     width: 360,
                     child: Column(
                       children: [
-                        // start------------------------------------------------
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => EditAccountPage(),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            margin: const EdgeInsets.only(bottom: 5, top: 5),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        // ignore: avoid_unnecessary_containers
-                                        Container(
-                                          margin:
-                                              const EdgeInsets.only(right: 10),
-                                          child: SvgPicture.asset(
-                                            'assets/images/myaccount/edit.svg',
-                                            width: 91,
-                                            height: 28,
-                                          ),
-                                        ),
-                                        const Text("Edit Account")
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                Column(
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/images/myaccount/arch.svg',
-                                      width: 30,
-                                      height: 20,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-
-                        Container(
-                          height: 10,
-                        ),
-
-                        // end-------------------
-                        // start------------------------------------------------
                         Container(
                           margin: const EdgeInsets.only(bottom: 5, top: 5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      // ignore: avoid_unnecessary_containers
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 10),
-                                        child: SvgPicture.asset(
-                                          'assets/images/myaccount/pepare.svg',
-                                          width: 91,
-                                          height: 28,
-                                        ),
-                                      ),
-                                      const Text("My Orders")
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/myaccount/arch.svg',
-                                    width: 30,
-                                    height: 20,
-                                  ),
-                                ],
+                              Text(
+                                user!['name'] ?? '',
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 17),
                               ),
                             ],
                           ),
                         ),
-                        Container(
-                          height: 10,
-                        ),
-
-                        // end-------------------
-                        // start------------------------------------------------
                         Container(
                           margin: const EdgeInsets.only(bottom: 5, top: 5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      // ignore: avoid_unnecessary_containers
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 10),
-                                        child: SvgPicture.asset(
-                                          'assets/images/myaccount/location.svg',
-                                          width: 91,
-                                          height: 28,
-                                        ),
-                                      ),
-                                      const Text("My Addresses")
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/myaccount/arch.svg',
-                                    width: 30,
-                                    height: 20,
-                                  ),
-                                ],
+                              Text(
+                                user!['email'] ?? '',
+                                style: const TextStyle(fontSize: 17),
                               ),
                             ],
                           ),
                         ),
                         Container(
-                          height: 10,
-                        ),
-
-                        // end-------------------
-                        // start------------------------------------------------
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 5, top: 5),
+                          margin: const EdgeInsets.only(),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      // ignore: avoid_unnecessary_containers
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 10),
-                                        child: SvgPicture.asset(
-                                          'assets/images/myaccount/heart.svg',
-                                          width: 91,
-                                          height: 28,
-                                        ),
-                                      ),
-                                      const Text("Wish list")
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/myaccount/arch.svg',
-                                    width: 30,
-                                    height: 20,
-                                  ),
-                                ],
+                              Text(
+                                user!['mobile'] ?? '',
+                                style: const TextStyle(fontSize: 17),
                               ),
                             ],
                           ),
                         ),
-                        // end-------------------
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 5, top: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      // ignore: avoid_unnecessary_containers
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 10),
-                                        child: SvgPicture.asset(
-                                          'assets/images/myaccount/lock.svg',
-                                          width: 91,
-                                          height: 28,
-                                        ),
-                                      ),
-                                      const Text("Change Password")
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/myaccount/arch.svg',
-                                    width: 30,
-                                    height: 20,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        // end-------------------
-                        // end-------------------
-                        Container(
-                          margin: const EdgeInsets.only(bottom: 5, top: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      // ignore: avoid_unnecessary_containers
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 10),
-                                        child: SvgPicture.asset(
-                                          'assets/images/myaccount/logout.svg',
-                                          width: 91,
-                                          height: 28,
-                                        ),
-                                      ),
-                                      const Text("Logout")
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/myaccount/arch.svg',
-                                    width: 30,
-                                    height: 20,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                        // end-------------------
                       ],
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 50),
-                    child: const Text(
-                      "Settings",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                  ),
+                ),
 
-                  Container(
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: const Color.fromARGB(255, 92, 90, 90)),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    margin: const EdgeInsets.only(top: 25),
-                    height: 130,
-                    width: 360,
-                    child: Column(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5, top: 5),
+                Container(
+                  margin: const EdgeInsets.only(top: 50),
+                  child: const Text(
+                    "My Account",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                ),
+                // ignore: avoid_unnecessary_containers
+                Container(
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 92, 90, 90)),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin: const EdgeInsets.only(top: 25),
+                  height: 300,
+                  width: 360,
+                  child: Column(
+                    children: [
+                      // start------------------------------------------------
+                      InkWell(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => EditAccountPage(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 5, top: 5),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -441,37 +166,254 @@ class _MyAccountState extends State<MyAccount> {
                                       Container(
                                         margin:
                                             const EdgeInsets.only(right: 10),
-                                        child: const Icon(
-                                          Icons.notifications_active_outlined,
-                                          size: 30,
+                                        child: SvgPicture.asset(
+                                          'assets/images/myaccount/edit.svg',
+                                          width: 91,
+                                          height: 28,
                                         ),
                                       ),
-                                      const Text("Notifications")
+                                      const Text("Edit Account")
                                     ],
                                   ),
                                 ],
                               ),
                               Column(
                                 children: [
-                                  Switch(
-                                    // This bool value toggles the switch.
-                                    value: isAuthenticated,
-                                    inactiveThumbColor: Colors.black,
-                                    activeTrackColor: Colors.green,
-                                    activeColor: Colors.white,
-                                    onChanged: (bool value) {
-                                      // This is called when the user toggles the switch.
-                                      setState(() {
-                                        isAuthenticated = value;
-                                      });
-                                    },
+                                  SvgPicture.asset(
+                                    'assets/images/myaccount/arch.svg',
+                                    width: 30,
+                                    height: 20,
                                   ),
                                 ],
                               ),
                             ],
                           ),
                         ),
-                        Row(
+                      ),
+
+                      Container(
+                        height: 10,
+                      ),
+
+                      // end-------------------
+                      // start------------------------------------------------
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 5, top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    // ignore: avoid_unnecessary_containers
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      child: SvgPicture.asset(
+                                        'assets/images/myaccount/pepare.svg',
+                                        width: 91,
+                                        height: 28,
+                                      ),
+                                    ),
+                                    const Text("My Orders")
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/myaccount/arch.svg',
+                                  width: 30,
+                                  height: 20,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 10,
+                      ),
+
+                      // end-------------------
+                      // start------------------------------------------------
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 5, top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    // ignore: avoid_unnecessary_containers
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      child: SvgPicture.asset(
+                                        'assets/images/myaccount/location.svg',
+                                        width: 91,
+                                        height: 28,
+                                      ),
+                                    ),
+                                    const Text("My Addresses")
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/myaccount/arch.svg',
+                                  width: 30,
+                                  height: 20,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 10,
+                      ),
+
+                      // end-------------------
+                      // start------------------------------------------------
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 5, top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    // ignore: avoid_unnecessary_containers
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      child: SvgPicture.asset(
+                                        'assets/images/myaccount/heart.svg',
+                                        width: 91,
+                                        height: 28,
+                                      ),
+                                    ),
+                                    const Text("Wish list")
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/myaccount/arch.svg',
+                                  width: 30,
+                                  height: 20,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      // end-------------------
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 5, top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    // ignore: avoid_unnecessary_containers
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      child: SvgPicture.asset(
+                                        'assets/images/myaccount/lock.svg',
+                                        width: 91,
+                                        height: 28,
+                                      ),
+                                    ),
+                                    const Text("Change Password")
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/myaccount/arch.svg',
+                                  width: 30,
+                                  height: 20,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      // end-------------------
+                      // end-------------------
+                      Container(
+                        margin: const EdgeInsets.only(bottom: 5, top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    // ignore: avoid_unnecessary_containers
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      child: SvgPicture.asset(
+                                        'assets/images/myaccount/logout.svg',
+                                        width: 91,
+                                        height: 28,
+                                      ),
+                                    ),
+                                    const Text("Logout")
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/myaccount/arch.svg',
+                                  width: 30,
+                                  height: 20,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      // end-------------------
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 50),
+                  child: const Text(
+                    "Settings",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                ),
+
+                Container(
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 92, 90, 90)),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin: const EdgeInsets.only(top: 25),
+                  height: 130,
+                  width: 360,
+                  child: Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.only(bottom: 5, top: 5),
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Column(
@@ -482,229 +424,263 @@ class _MyAccountState extends State<MyAccount> {
                                     Container(
                                       margin: const EdgeInsets.only(right: 10),
                                       child: const Icon(
-                                        Icons.language_outlined,
+                                        Icons.notifications_active_outlined,
                                         size: 30,
                                       ),
                                     ),
-                                    const Text("Language")
+                                    const Text("Notifications")
                                   ],
                                 ),
                               ],
                             ),
                             Column(
                               children: [
-                                Text("English"),
+                                Switch(
+                                  // This bool value toggles the switch.
+                                  value: isAuthenticated,
+                                  inactiveThumbColor: Colors.black,
+                                  activeTrackColor: Colors.green,
+                                  activeColor: Colors.white,
+                                  onChanged: (bool value) {
+                                    // This is called when the user toggles the switch.
+                                    setState(() {
+                                      isAuthenticated = value;
+                                    });
+                                  },
+                                ),
                               ],
                             ),
                           ],
                         ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 50),
-                    child: const Text(
-                      "Support",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                    ),
-                  ),
-                  // ignore: avoid_unnecessary_containers
-                  Container(
-                    padding: const EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: const Color.fromARGB(255, 92, 90, 90)),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    margin: const EdgeInsets.only(top: 25),
-                    height: 220,
-                    width: 360,
-                    child: Column(
-                      children: [
-                        // start------------------------------------------------
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5, top: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(
                             children: [
-                              Column(
+                              Row(
                                 children: [
-                                  Row(
-                                    children: [
-                                      // ignore: avoid_unnecessary_containers
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 10),
-                                        child: SvgPicture.asset(
-                                          'assets/images/myaccount/b.svg',
-                                          width: 91,
-                                          height: 28,
-                                        ),
-                                      ),
-                                      const Text("About Best Price")
-                                    ],
+                                  // ignore: avoid_unnecessary_containers
+                                  Container(
+                                    margin: const EdgeInsets.only(right: 10),
+                                    child: const Icon(
+                                      Icons.language_outlined,
+                                      size: 30,
+                                    ),
                                   ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/myaccount/arch.svg',
-                                    width: 30,
-                                    height: 20,
-                                  ),
+                                  const Text("Language")
                                 ],
                               ),
                             ],
                           ),
-                        ),
-
-                        Container(
-                          height: 10,
-                        ),
-
-                        // end-------------------
-                        // start------------------------------------------------
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5, top: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          Column(
                             children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      // ignore: avoid_unnecessary_containers
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 10),
-                                        child: SvgPicture.asset(
-                                          'assets/images/myaccount/pepare.svg',
-                                          width: 91,
-                                          height: 28,
-                                        ),
-                                      ),
-                                      const Text("Our Policies")
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/myaccount/arch.svg',
-                                    width: 30,
-                                    height: 20,
-                                  ),
-                                ],
-                              ),
+                              Text("English"),
                             ],
                           ),
-                        ),
-                        Container(
-                          height: 10,
-                        ),
-
-                        // end-------------------
-                        // start------------------------------------------------
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5, top: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      // ignore: avoid_unnecessary_containers
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 10),
-                                        child: SvgPicture.asset(
-                                          'assets/images/myaccount/pepare.svg',
-                                          width: 91,
-                                          height: 28,
-                                        ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 50),
+                  child: const Text(
+                    "Support",
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+                ),
+                // ignore: avoid_unnecessary_containers
+                Container(
+                  padding: const EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                        color: const Color.fromARGB(255, 92, 90, 90)),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  margin: const EdgeInsets.only(top: 25),
+                  height: 220,
+                  width: 360,
+                  child: Column(
+                    children: [
+                      // start------------------------------------------------
+                      Container(
+                        margin: EdgeInsets.only(bottom: 5, top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    // ignore: avoid_unnecessary_containers
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      child: SvgPicture.asset(
+                                        'assets/images/myaccount/b.svg',
+                                        width: 91,
+                                        height: 28,
                                       ),
-                                      const Text("Terms & Conditions")
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/myaccount/arch.svg',
-                                    width: 30,
-                                    height: 20,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                    ),
+                                    const Text("About Best Price")
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/myaccount/arch.svg',
+                                  width: 30,
+                                  height: 20,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        Container(
-                          height: 10,
-                        ),
+                      ),
 
-                        // end-------------------
-                        // start------------------------------------------------
-                        Container(
-                          margin: EdgeInsets.only(bottom: 5, top: 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      // ignore: avoid_unnecessary_containers
-                                      Container(
-                                        margin:
-                                            const EdgeInsets.only(right: 10),
-                                        child: SvgPicture.asset(
-                                          'assets/images/myaccount/headphone.svg',
-                                          width: 91,
-                                          height: 28,
-                                        ),
+                      Container(
+                        height: 10,
+                      ),
+
+                      // end-------------------
+                      // start------------------------------------------------
+                      Container(
+                        margin: EdgeInsets.only(bottom: 5, top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    // ignore: avoid_unnecessary_containers
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      child: SvgPicture.asset(
+                                        'assets/images/myaccount/pepare.svg',
+                                        width: 91,
+                                        height: 28,
                                       ),
-                                      const Text("Contact Us")
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  SvgPicture.asset(
-                                    'assets/images/myaccount/arch.svg',
-                                    width: 30,
-                                    height: 20,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                    ),
+                                    const Text("Our Policies")
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/myaccount/arch.svg',
+                                  width: 30,
+                                  height: 20,
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                        // end-------------------
-                      ],
-                    ),
+                      ),
+                      Container(
+                        height: 10,
+                      ),
+
+                      // end-------------------
+                      // start------------------------------------------------
+                      Container(
+                        margin: EdgeInsets.only(bottom: 5, top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    // ignore: avoid_unnecessary_containers
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      child: SvgPicture.asset(
+                                        'assets/images/myaccount/pepare.svg',
+                                        width: 91,
+                                        height: 28,
+                                      ),
+                                    ),
+                                    const Text("Terms & Conditions")
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/myaccount/arch.svg',
+                                  width: 30,
+                                  height: 20,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        height: 10,
+                      ),
+
+                      // end-------------------
+                      // start------------------------------------------------
+                      Container(
+                        margin: EdgeInsets.only(bottom: 5, top: 5),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    // ignore: avoid_unnecessary_containers
+                                    Container(
+                                      margin: const EdgeInsets.only(right: 10),
+                                      child: SvgPicture.asset(
+                                        'assets/images/myaccount/headphone.svg',
+                                        width: 91,
+                                        height: 28,
+                                      ),
+                                    ),
+                                    const Text("Contact Us")
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Column(
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/images/myaccount/arch.svg',
+                                  width: 30,
+                                  height: 20,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      // end-------------------
+                    ],
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    alignment: Alignment.center,
-                    child: const Text("V.1.0"),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: const Text("© 2023 Best Price. All rights reserved"),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    child: const Text("Powered By Line"),
-                  )
-                ]),
-              ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  alignment: Alignment.center,
+                  child: const Text("V.1.0"),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: const Text("© 2023 Best Price. All rights reserved"),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: const Text("Powered By Line"),
+                )
+              ]),
             ),
           );
   }

@@ -20,36 +20,43 @@ class AuthService {
     return (tokens); // Use tokens here after it's retrieved
   }
 
-  checkAuth(token) async {
-    if (token == null) {
-      return (false);
-    }
-    try {
-      final response = await http.get(
-        Uri.parse('http://192.168.1.6:8000/api/auth'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Authorization': 'Bearer $token',
-        },
-      );
 
-      if (response.statusCode == 200) {
-        var jsonResponse = jsonDecode(response.body);
-        if (jsonResponse['status']) {
-          setUser(jsonResponse);
-
-          return (true);
-        } else {
-          return (false);
-        }
-      } else {
-        return (false);
-      }
-    } catch (e) {
-      return (false);
-    }
+Future<bool> checkAuth(String? token) async {
+  if (token == null) {
+    print("Token is null");
+    return false;
   }
+  try {
+    final response = await http.get(
+      Uri.parse('http://192.168.1.5:8000/api/auth'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer $token',
+      },
+    );
 
+    print("Response status code: ${response.statusCode}");
+    print("Response body: ${response.body}");
+
+    if (response.statusCode == 200) {
+      var jsonResponse = jsonDecode(response.body);
+      if (jsonResponse['status']) {
+        setUser(jsonResponse);
+        print("Authentication successful: $jsonResponse");
+        return true;
+      } else {
+        print("Authentication failed: ${jsonResponse['message']}");
+        return false;
+      }
+    } else {
+      print("Failed with status code: ${response.statusCode}");
+      return false;
+    }
+  } catch (e) {
+    print("Exception caught: $e");
+    return false;
+  }
+}
 
 
 // clearAuthSession
